@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Studio • AI Simulator</title>
+  <style>
+    body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:#0e0e0f;color:white;display:flex;justify-content:center;padding:60px 0;}
+    .wrap{width:1200px;max-width:94%;}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;opacity:.9}
+    nav a{color:#ccc;margin-left:20px;text-decoration:none;font-size:14px}
+    nav a:hover{color:white}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      margin-top:30px;
+    }
+
+    .panel{
+      background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));
+      padding:40px;border-radius:28px;border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 8px 40px rgba(0,0,0,0.55);
+    }
+
+    h1{margin:0 0 30px 0;font-size:42px;font-weight:700;letter-spacing:-0.5px}
+    label{display:block;margin-bottom:8px;font-size:14px;color:#bbb}
+
+    select,input[type="text"],textarea{
+      width:100%;padding:12px 14px;border-radius:12px;background:#111;border:1px solid #222;color:white;margin-bottom:22px;font-size:14px;
+    }
+
+    input[type="range"]{width:100%;margin:20px 0}
+
+    button{
+      padding:12px 24px;border-radius:12px;border:none;background:white;color:black;font-weight:600;cursor:pointer;font-size:14px;
+    }
+
+    .estimates{margin-top:10px;font-size:14px;color:#ccc}
+  </style>
+</head>
+
+<body>
+  <!-- GLOBAL BACKGROUND SYSTEM -->
+<div class="global-bg">
+  <div class="bg-image-layer"></div>
+  <div class="bg-gradient-layer"></div>
+</div>
+
+  <div class="wrap">
+
+    <header>
+      <div>STUDIO • AI SIMULATOR</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="aisimulator.html">Simulator</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <!-- GRID: Controls (left) and Preview (right) -->
+    <div class="grid">
+
+      <!-- LEFT PANEL -->
+      <div class="panel">
+        <h1>Design Controls</h1>
+
+        <label>Product Type</label>
+        <select>
+          <option>Vase</option>
+          <option>Chair</option>
+          <option>Lighting</option>
+        </select>
+
+        <label>Material</label>
+        <select>
+          <option>Ceramic (standard)</option>
+          <option>Clay Premium</option>
+          <option>Recycled Mix</option>
+        </select>
+
+        <label>Scale</label>
+        <input id="scale" type="range" min="1" max="100" value="50" />
+
+        <label>Accent Color</label>
+        <input id="accent" type="text" 
+
+        <p class="estimates">
+          AI Assistant updates estimates in real time.<br><br>
+          Estimated Cost: $15,000<br>
+          Estimated Print Time: —
+        </p>
+
+        <button>Run Simulation</button>
+
+        <p style="margin-top:20px;font-size:13px;color:#aaa">
+          Use our AI assistant to optimize material & cost before booking a consultation in Los Angeles.
+        </p>
+      </div>
+
+      <!-- RIGHT PANEL (SIM PREVIEW) -->
+      <div class="panel" style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          position:relative;
+         
+      ">
+        <div id="simObject" style="
+            width:160px;
+            height:160px;
+            border-radius:999px;
+            background:#d88932;
+            box-shadow:0 14px 36px rgba(0,0,0,0.45);
+            transition:all 0.25s ease;
+        "></div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
+
+<script>
+const scaleInput = document.getElementById("scale");
+const colorInput = document.getElementById("accent");
+const simObject = document.getElementById("simObject");
+
+// scale slider → object grows
+scaleInput.addEventListener("input", e => {
+    const v = parseFloat(e.target.value);
+    const size = 80 + (v * 1.8); // smoother + correct scaling
+    simObject.style.width = size + "px";
+    simObject.style.height = size + "px";
+});
+
+// accent color → object fill color
+colorInput.addEventListener("input", e => {
+    simObject.style.background = e.target.value || "#d88932";
+});
+</script>
