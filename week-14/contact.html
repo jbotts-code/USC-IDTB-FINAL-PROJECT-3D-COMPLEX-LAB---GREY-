@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Studio • Contact</title>
+  <style>
+    body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:#0e0e0f;color:white;display:flex;justify-content:center;padding:60px 0;}
+    .wrap{width:1200px;max-width:94%;}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;opacity:.9}
+    nav a{color:#ccc;margin-left:20px;text-decoration:none;font-size:14px}
+    nav a:hover{color:white}
+
+    .panel{
+      background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));
+      padding:40px;border-radius:28px;border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 8px 40px rgba(0,0,0,0.55);
+    }
+    h1{margin:0 0 30px 0;font-size:42px;font-weight:700;letter-spacing:-0.5px}
+    label{display:block;margin-bottom:8px;font-size:14px;color:#bbb}
+    input[type="text"],textarea,select{
+      width:100%;padding:12px 14px;border-radius:12px;background:#111;border:1px solid #222;color:white;margin-bottom:22px;font-size:14px
+    }
+
+    button{
+      padding:12px 24px;border-radius:12px;border:none;background:white;color:black;font-weight:600;cursor:pointer;font-size:14px
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>STUDIO • CONTACT</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="aisimulator.html">Simulator</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <div class="panel">
+      <h1>STUDIO • CONTACT</h1>
+
+      <label>Full name</label>
+      <input type="text" placeholder="Your name" />
+
+      <label>Email</label>
+      <input type="text" placeholder="you@example.com" />
+
+      <label>Reason for contact</label>
+      <select>
+        <option>Consultation / Pricing</option>
+        <option>Custom Project</option>
+        <option>Material / Manufacturing</option>
+      </select>
+
+      <label>Message</label>
+      <textarea rows="4" placeholder="Tell us about your project"></textarea>
+
+      <button>Send Message</button>
+
+      <p style="margin-top:20px;font-size:13px;color:#aaa">
+        We typically reply within 48 hours.<br><br>
+        Use our AI assistant to optimize material & cost before booking a consultation in Los Angeles.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
