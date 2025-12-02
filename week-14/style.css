@@ -1,0 +1,85 @@
+/* ------------------------------------------
+   GLOBAL BACKGROUND SYSTEM (OPTIMIZED FINAL)
+   — closest match to original particle-wave.png
+-------------------------------------------*/
+
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;             /* always behind everything */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ⭐ Correct file path (your file inside /images/) */
+.bg-image-layer {
+  position: absolute;
+  inset: 0;
+  background: url('images/wave-dots.png') center top/auto 100% repeat-x;
+  image-rendering: pixelated;      /* enforce hard edges on dots */
+
+  /* 🎯 higher clarity for dots */
+  opacity: 0.38;
+  filter: brightness(1.2) contrast(1.25) saturate(1.05);
+
+  /* 🔥 subtle movement & “floating wave” look */
+  animation: bg-float 24s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+/* ✨ atmospheric gradient layer: deeper + closer to original */
+.bg-gradient-layer {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255,255,255,0.06),
+      rgba(0,0,0,0.50) 60%   /* lighter so particles show through */
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,0.18),      /* softer top shade */
+      rgba(0,0,0,0.60)       /* softer base shade */
+    );
+
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+
+  /* 🕶 smooth vignette feeling like Bottega/Monopo */
+  mask-image: radial-gradient(circle at center, black 50%, transparent 100%);
+  z-index: -1;
+}
+
+/* 🌫 gentle float motion */
+@keyframes bg-float {
+  0% {
+    transform: translateY(-6px);
+    opacity: 0.18;
+  }
+  100% {
+    transform: translateY(6px);
+    opacity: 0.26;
+  }
+}
+
+/* Optional particle canvas positioning (sits above gradients, below UI) */
+#canvas-container {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+#waveCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Ensure UI stays crisp above backgrounds */
+.page {
+  position: relative;
+  z-index: 1;
+}
