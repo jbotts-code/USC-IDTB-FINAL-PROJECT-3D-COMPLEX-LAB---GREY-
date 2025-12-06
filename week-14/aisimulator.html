@@ -102,7 +102,7 @@
         <input id="scale" type="range" min="1" max="100" value="50" />
 
         <label>Accent Color</label>
-        <input id="accent" type="text" value="#d88932" />
+        <input id="accent" type="color" value="#d88932" />
 
         <p class="estimates">
           AI Assistant updates estimates in real time.<br><br>
@@ -117,25 +117,16 @@
         </p>
       </div>
 
-      <!-- RIGHT PANEL (SIM PREVIEW) -->
-      <div class="panel" style="
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          position:relative;
-      ">
-        <div id="simObject" style="
-            width:160px;
-            height:160px;
-            border-radius:999px;
-            background:#d88932;
-            box-shadow:0 14px 36px rgba(0,0,0,0.45);
-            transition:all 0.25s ease;
-        "></div>
+      <!-- RIGHT PANEL (3D CHAIR PREVIEW) -->
+      <div class="panel" style="display:flex;align-items:center;justify-content:center;position:relative;">
+        <canvas id="chairCanvas" style="width:100%;height:100%;"></canvas>
       </div>
 
     </div>
   </div>
+
+  <!-- THREE.JS LIBRARY -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- ✅ WAVE PARTICLE ANIMATION SCRIPT -->
   <script>
@@ -256,21 +247,119 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     animate();
+  </script>
 
-    // Simulator controls
-    const scaleInput = document.getElementById("scale");
-    const colorInput = document.getElementById("accent");
-    const simObject = document.getElementById("simObject");
+  <!-- 3D CHAIR SCRIPT -->
+  <script>
+    const chairCanvas = document.getElementById('chairCanvas');
+    const width = chairCanvas.clientWidth;
+    const height = chairCanvas.clientHeight;
 
-    scaleInput.addEventListener("input", e => {
-        const v = parseFloat(e.target.value);
-        const size = 80 + (v * 1.8);
-        simObject.style.width = size + "px";
-        simObject.style.height = size + "px";
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: chairCanvas, antialias: true, alpha: true });
+    
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x000000, 0);
+    camera.position.set(0, 0, 4);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(5, 10, 7);
+    scene.add(directionalLight);
+
+    // Create chair group
+    const chairGroup = new THREE.Group();
+
+    const chairMaterial = new THREE.MeshStandardMaterial({ 
+      color: 0xd88932,
+      roughness: 0.5,
+      metalness: 0.05
     });
 
-    colorInput.addEventListener("input", e => {
-        simObject.style.background = e.target.value || "#d88932";
+    // Chair back
+    const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.5, 0.15), chairMaterial);
+    back.position.set(0, 0.6, -0.4);
+    chairGroup.add(back);
+
+    // Chair seat
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.15, 1), chairMaterial);
+    seat.position.set(0, 0, 0);
+    chairGroup.add(seat);
+
+    // Legs
+    const legGeometry = new THREE.BoxGeometry(0.1, 0.8, 0.1);
+    const legMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+    
+    [[-0.5, 0.4], [0.5, 0.4], [-0.5, -0.4], [0.5, -0.4]].forEach(([x, z]) => {
+      const leg = new THREE.Mesh(legGeometry, legMaterial);
+      leg.position.set(x, -0.4, z);
+      chairGroup.add(leg);
+    });
+
+    scene.add(chairGroup);
+
+    // Mouse controls for rotation
+    let mouseDown = false;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    chairCanvas.addEventListener('mousedown', (e) => {
+      mouseDown = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    chairCanvas.addEventListener('mousemove', (e) => {
+      if (mouseDown) {
+        const deltaX = e.clientX - mouseX;
+        const deltaY = e.clientY - mouseY;
+        chairGroup.rotation.y += deltaX * 0.01;
+        chairGroup.rotation.x += deltaY * 0.01;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      }
+    });
+
+    chairCanvas.addEventListener('mouseup', () => {
+      mouseDown = false;
+    });
+
+    chairCanvas.addEventListener('mouseleave', () => {
+      mouseDown = false;
+    });
+
+    // Color control linked to accent color input
+    const accentInput = document.getElementById('accent');
+    accentInput.addEventListener('input', (e) => {
+      chairMaterial.color.setStyle(e.target.value);
+    });
+
+    // Scale control linked to scale slider
+    const scaleInput = document.getElementById('scale');
+    scaleInput.addEventListener('input', (e) => {
+      const scale = 0.5 + (parseFloat(e.target.value) / 100) * 1.5;
+      chairGroup.scale.set(scale, scale, scale);
+    });
+
+    // Animation loop
+    function animateChair() {
+      requestAnimationFrame(animateChair);
+      renderer.render(scene, camera);
+    }
+
+    animateChair();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const newWidth = chairCanvas.clientWidth;
+      const newHeight = chairCanvas.clientHeight;
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newWidth, newHeight);
     });
   </script>
 

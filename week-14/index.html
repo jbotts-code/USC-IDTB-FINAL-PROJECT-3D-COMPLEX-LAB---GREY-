@@ -63,17 +63,104 @@
     .research-section strong{color:white;font-size:13px}
     .research-section p{margin:8px 0 0 0;color:rgba(255,255,255,0.6);font-size:12px;line-height:1.4}
     
-    .accordion{display:flex;flex-direction:column;gap:8px}
-    .acc-item{
-      padding:12px 14px;
-      border-radius:12px;
-      background:rgba(0, 0, 0, 0.06);
-      backdrop-filter: blur(24px);
-      font-size:14px;
-      color:rgba(255,255,255,0.75);
-      border:1px solid rgba(255,255,255,0.15);
+    /* New Tab Styles - Floating Buttons */
+    .tabs-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
     }
+
+    .tab-item {
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .tab-header {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(32px) saturate(120%);
+      border-radius: 24px;
+      padding: 16px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-header:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .tab-header.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.4);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .tab-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: white;
+      letter-spacing: 0.3px;
+    }
+
+    .toggle-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.3s ease;
+    }
+
+    .tab-header.active .toggle-icon {
+      color: white;
+      transform: rotate(180deg);
+    }
+
+    .tab-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .tab-content.active {
+      max-height: 400px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    .tab-body {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+    }
+
+    .tab-body p {
+      margin: 0;
+    }
+
     footer{margin-top:20px;color:rgba(255,255,255,0.6);font-size:13px}
+
+    @media (max-width: 768px) {
+      .tab-header {
+        padding: 14px 20px;
+      }
+    }
   </style>
 </head>
 
@@ -128,11 +215,85 @@
 
     <div class="panel" style="margin-top:40px">
       <h1 style="font-size:28px;margin-bottom:20px">Shaping the Future</h1>
-      <div class="accordion">
-        <div class="acc-item">Robotic Automation</div>
-        <div class="acc-item">Material Science</div>
-        <div class="acc-item">Circular Design</div>
-        <div class="acc-item">Research Initiative</div>
+      <div class="tabs-container">
+        <div class="tab-item">
+          <div class="tab-header" onclick="toggleTab(this)">
+            <div class="tab-title">Robotic Automation</div>
+            <div class="toggle-icon">▼</div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-body">
+              <p><strong>Transforming Home Décor Manufacturing</strong></p>
+              <p style="margin-top: 10px; font-size: 13px;">Automation delivers greater efficiency, consistency, and value. With fully 3D-printed materials, production becomes cleaner, faster, and more precise.</p>
+              <p style="margin-top: 10px;"><strong>Key Benefits:</strong></p>
+              <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px;">
+                <li>Minimal waste & excellent repeatability</li>
+                <li>Rapid production cycles</li>
+                <li>Superior quality at better price points</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-item">
+          <div class="tab-header" onclick="toggleTab(this)">
+            <div class="tab-title">Material Science</div>
+            <div class="toggle-icon">▼</div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-body">
+              <p><strong>Advanced Materials for Every Application</strong></p>
+              <p style="margin-top: 10px; font-size: 13px;">We use a range of materials—each chosen for its specific role in the building process.</p>
+              <p style="margin-top: 10px;"><strong>Core Materials:</strong></p>
+              <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px;">
+                <li><strong>Thermoplastics:</strong> PLA, ABS, PETG for durability & precision</li>
+                <li><strong>Composites:</strong> Wood-filled plastics & carbon-fiber blends</li>
+                <li><strong>Bio-based:</strong> Biopolymers & mycelium for sustainability</li>
+                <li><strong>Specialty:</strong> Resin & acrylic polymers for detail & clarity</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-item">
+          <div class="tab-header" onclick="toggleTab(this)">
+            <div class="tab-title">Circular Design</div>
+            <div class="toggle-icon">▼</div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-body">
+              <p><strong>Closing the Loop</strong></p>
+              <p style="margin-top: 10px; font-size: 13px;">Our furniture is designed to stay in circulation—reclaimed, reprinted, and repurposed instead of discarded.</p>
+              <p style="margin-top: 10px;"><strong>Circular Approach:</strong></p>
+              <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px;">
+                <li>Recyclable plastics (PLA, PETG, recycled polymers)</li>
+                <li>Bio-based materials reduce environmental impact</li>
+                <li>3D printing eliminates excess scrap</li>
+                <li>Old furniture transforms into new forms</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-item">
+          <div class="tab-header" onclick="toggleTab(this)">
+            <div class="tab-title">Research Initiative</div>
+            <div class="toggle-icon">▼</div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-body">
+              <p><strong>The Future of Digitally Manufactured Furniture</strong></p>
+              <p style="margin-top: 10px; font-size: 13px;">We explore how advanced materials, large-format fabrication, and sustainable practices reshape furniture creation.</p>
+              <p style="margin-top: 10px;"><strong>Research Focus:</strong></p>
+              <ul style="margin: 8px 0; padding-left: 20px; font-size: 13px;">
+                <li>New material blends & structural strategies</li>
+                <li>Lighter, stronger, more customizable designs</li>
+                <li>Waste reduction & shorter production cycles</li>
+                <li>Local, on-demand manufacturing capabilities</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -143,6 +304,24 @@
   </div>
 
   <script>
+    function toggleTab(headerElement) {
+      const tabItem = headerElement.parentElement;
+      const tabContent = tabItem.querySelector('.tab-content');
+      const isActive = headerElement.classList.contains('active');
+
+      // Close other tabs
+      document.querySelectorAll('.tab-header').forEach(header => {
+        if (header !== headerElement) {
+          header.classList.remove('active');
+          header.parentElement.querySelector('.tab-content').classList.remove('active');
+        }
+      });
+
+      // Toggle current tab
+      headerElement.classList.toggle('active');
+      tabContent.classList.toggle('active');
+    }
+
     const canvas = document.getElementById('waveCanvas');
     const ctx = canvas.getContext('2d');
 
