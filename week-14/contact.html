@@ -1,87 +1,228 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Studio • Contact</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Studio • Contact</title>
 
-<link rel="stylesheet" href="style.css">
-
-<style>
-body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:transparent;color:white;display:flex;justify-content:center;padding:60px 0;}
-
-/* Canvas stays in background */
-#waveCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.wrap{width:1200px;max-width:94%;position:relative;z-index:1;}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;opacity:.9}
-nav a{color:#ccc;margin-left:20px;text-decoration:none;font-size:14px}
-nav a:hover{color:white}
-.panel{
-background: rgba(0, 0, 0, 0.05);
-backdrop-filter: blur(40px) saturate(140%);
-padding:40px;
-border-radius:28px;
-border:1px solid rgba(255,255,255,0.25);
-box-shadow:0 8px 32px rgba(0,0,0,0.2);
-min-height: 600px;
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:transparent;color:white;display:flex;justify-content:center;padding:60px 0;}
+    
+    #waveCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
     }
-h1{margin:0 0 30px 0;font-size:42px;font-weight:700;letter-spacing:-0.5px}
-label{display:block;margin-bottom:8px;font-size:14px;color:#bbb}
-input[type="text"],textarea,select{
-width:100%;padding:12px 14px;border-radius:12px;background:#111;border:1px solid #222;color:white;margin-bottom:22px;font-size:14px
+    
+    .wrap{width:1200px;max-width:94%;position:relative;z-index:1;}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;opacity:.9}
+    header > div:first-child{color:#fff;font-weight:700;}
+    nav a{
+      color:#fff;
+      margin-left:20px;
+      text-decoration:none;
+      font-size:14px;
+      padding:12px 20px;
+      border-radius:20px;
+      background:rgba(255,140,66,0.7);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.3);
+      transition:all 0.3s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
-button{
-padding:12px 24px;border-radius:12px;border:none;background:white;color:black;font-weight:600;cursor:pointer;font-size:14px
+    nav a:hover{
+      color:white;
+      background:rgba(255,140,66,0.9);
+      border-color:rgba(255,255,255,0.5);
+      transform:translateY(-2px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.2);
     }
-</style>
+
+    .panel{
+      background: rgba(140,160,190,0.08);
+      backdrop-filter: blur(40px) saturate(140%);
+      padding:40px;
+      border-radius:28px;
+      border:1px solid rgba(140,160,190,0.3);
+      box-shadow:0 8px 32px rgba(0,0,0,0.2);
+      min-height: auto;
+    }
+
+    h1{margin:0 0 30px 0;font-size:42px;font-weight:700;letter-spacing:-0.5px}
+    label{display:block;margin-bottom:8px;font-size:14px;color:#fff}
+
+    select,input[type="text"],textarea{
+      width:100%;padding:12px 14px;border-radius:12px;background:rgba(140,160,190,0.25);border:1px solid rgba(140,160,190,0.4);color:white;margin-bottom:22px;font-size:14px;
+    }
+
+    button{
+      padding:12px 24px;border-radius:50px;border:2px solid rgba(140,160,190,0.5);background:rgba(140,160,190,0.2);color:white;font-weight:600;cursor:pointer;font-size:14px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    button:hover{
+      background:rgba(140,160,190,0.25);border-color:rgba(140,160,190,0.7);box-shadow:0 8px 24px rgba(140,160,190,0.2);
+    }
+    
+    button:active{
+      transform:scale(0.98);
+    }
+
+    /* Custom Dropdown */
+    .custom-select {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .custom-select-header {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: #4A7BA7 !important;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    .custom-select-header:hover {
+      background: #5A8BB7 !important;
+      box-shadow: 0 8px 24px rgba(140,160,190,0.2);
+    }
+
+    .custom-select-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #4A7BA7;
+      border-radius: 18px;
+      margin-top: 8px;
+      display: none;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+    }
+
+    .custom-select.active .custom-select-menu {
+      display: block;
+      max-height: 300px;
+      opacity: 1;
+      box-shadow: 0 8px 24px rgba(140,160,190,0.3);
+    }
+
+    .custom-option {
+      padding: 12px 14px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .custom-option:hover {
+      background: #5A8BB7;
+    }
+
+    .custom-option:first-child {
+      padding-top: 12px;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .custom-option:last-child {
+      padding-bottom: 12px;
+      border-radius: 0 0 18px 18px;
+    }
+  </style>
 </head>
+
 <body>
+  <canvas id="waveCanvas"></canvas>
 
-<!-- ✅ WAVE PARTICLE ANIMATION BACKGROUND -->
-<canvas id="waveCanvas"></canvas>
+  <div class="wrap">
+    <header>
+      <div>STUDIO • CONTACT</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="aisimulator.html">Simulator</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
 
-<div class="wrap">
-<header>
-<div>STUDIO • CONTACT</div>
-<nav>
-<a href="index.html">Home</a>
-<a href="aisimulator.html">Simulator</a>
-<a href="contact.html">Contact</a>
-</nav>
-</header>
-<div class="panel">
-<h1>STUDIO • CONTACT</h1>
-<label>Full name</label>
-<input type="text" placeholder="Your name" />
-<label>Email</label>
-<input type="text" placeholder="you@example.com" />
-<label>Reason for contact</label>
-<select>
-<option>Consultation / Pricing</option>
-<option>Custom Project</option>
-<option>Material / Manufacturing</option>
-</select>
-<label>Message</label>
-<textarea rows="4" placeholder="Tell us about your project"></textarea>
-<button>Send Message</button>
-<p style="margin-top:20px;font-size:13px;color:#aaa">
+    <div class="panel">
+      <h1>Get in Touch</h1>
+
+      <label>Full name</label>
+      <input type="text" placeholder="Your name" />
+
+      <label>Email</label>
+      <input type="text" placeholder="you@example.com" />
+
+      <label>Reason for contact</label>
+      <div class="custom-select">
+        <div class="custom-select-header">Consultation / Pricing</div>
+        <div class="custom-select-menu">
+          <div class="custom-option" onclick="selectOption(this, 'Consultation / Pricing')">Consultation / Pricing</div>
+          <div class="custom-option" onclick="selectOption(this, 'Custom Project')">Custom Project</div>
+          <div class="custom-option" onclick="selectOption(this, 'Material / Manufacturing')">Material / Manufacturing</div>
+        </div>
+      </div>
+
+      <label>Message</label>
+      <textarea rows="4" placeholder="Tell us about your project"></textarea>
+
+      <button>Send Message</button>
+
+      <p style="margin-top:20px;font-size:13px;color:#aaa">
         We typically reply within 48 hours.<br><br>
-        Use our AI assistant to optimize material & cost before booking a consultation in Los Angeles.
-</p>
-</div>
-</div>
+        Studio is based in Los Angeles. We work with clients worldwide.
+      </p>
+    </div>
+  </div>
 
-<!-- ✅ WAVE PARTICLE ANIMATION SCRIPT -->
-<script>
+  <!-- WAVE PARTICLE ANIMATION SCRIPT -->
+  <script>
+    // Custom dropdown functionality
+    document.querySelectorAll('.custom-select-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const parent = this.closest('.custom-select');
+        // Close all other dropdowns
+        document.querySelectorAll('.custom-select').forEach(select => {
+          if (select !== parent) {
+            select.classList.remove('active');
+          }
+        });
+        // Toggle current dropdown
+        parent.classList.toggle('active');
+      });
+    });
+
+    // Select option functionality
+    function selectOption(element, value) {
+      const parent = element.closest('.custom-select');
+      const header = parent.querySelector('.custom-select-header');
+      header.textContent = value;
+      parent.classList.remove('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.custom-select')) {
+        document.querySelectorAll('.custom-select').forEach(select => {
+          select.classList.remove('active');
+        });
+      }
+    });
+
     const canvas = document.getElementById('waveCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -199,7 +340,7 @@ padding:12px 24px;border-radius:12px;border:none;background:white;color:black;fo
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     animate();
-</script>
+  </script>
 
 </body>
 </html>

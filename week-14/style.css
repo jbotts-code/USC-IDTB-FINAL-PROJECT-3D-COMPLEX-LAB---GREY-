@@ -45,27 +45,44 @@ header {
   opacity: 0.9;
 }
 
+header > div:first-child {
+  color: #fff;
+  font-weight: 700;
+}
+
 nav a {
-  color: #ccc;
+  color: #fff;
   margin-left: 20px;
   text-decoration: none;
   font-size: 14px;
-  transition: color 0.3s ease;
+  padding: 12px 20px;
+  border-radius: 20px;
+  background: rgba(255, 140, 66, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 nav a:hover {
   color: white;
+  background: rgba(255, 140, 66, 0.9);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* ------------------------------------------
    PANEL & CONTAINERS
 -------------------------------------------*/
 .panel {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(180, 200, 220, 0.08);
   backdrop-filter: blur(40px) saturate(140%);
   padding: 40px;
   border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(180, 200, 220, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   min-height: auto;
 }
@@ -108,7 +125,7 @@ label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
-  color: #bbb;
+  color: #fff;
 }
 
 select,
@@ -118,8 +135,8 @@ textarea {
   width: 100%;
   padding: 12px 14px;
   border-radius: 12px;
-  background: #111;
-  border: 1px solid #222;
+  background: rgba(140, 160, 190, 0.25);
+  border: 1px solid rgba(140, 160, 190, 0.4);
   color: white;
   margin-bottom: 22px;
   font-size: 14px;
@@ -137,10 +154,10 @@ textarea {
 
 button {
   padding: 12px 24px;
-  border-radius: 12px;
-  border: none;
-  background: white;
-  color: black;
+  border-radius: 50px;
+  border: 2px solid #2a2a2a;
+  background: rgba(140, 160, 190, 0.15);
+  color: white;
   font-weight: 600;
   cursor: pointer;
   font-size: 14px;
@@ -148,7 +165,9 @@ button {
 }
 
 button:hover {
-  opacity: 0.9;
+  background: rgba(140, 160, 190, 0.25);
+  border-color: #3a3a3a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
 
@@ -163,12 +182,12 @@ button:hover {
 }
 
 .card {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(140, 160, 190, 0.25);
   backdrop-filter: blur(36px) saturate(140%);
   border-radius: 18px;
   padding: 18px;
   color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(140, 160, 190, 0.4);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -208,33 +227,113 @@ button:hover {
   margin-top: 12px;
 }
 
-.btn {
-  padding: 10px 16px;
-  border-radius: 12px;
+/* Sliding Toggle Switch */
+.toggle-switch {
+  display: inline-flex;
+  background: rgba(140, 160, 190, 0.2);
+  border: 2px solid rgba(140, 160, 190, 0.5);
+  border-radius: 50px;
+  padding: 8px 12px;
+  position: relative;
+  width: auto;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.toggle-switch:hover {
+  border-color: rgba(140, 160, 190, 0.7);
+  background: rgba(140, 160, 190, 0.25);
+  box-shadow: 0 4px 16px rgba(140, 160, 190, 0.2);
+}
+
+.toggle-slider-bg {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  height: calc(100% - 16px);
+  width: calc(50% - 8px);
+  background: rgba(140, 160, 190, 0.5);
+  border-radius: 50px;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.toggle-switch.active-right .toggle-slider-bg {
+  left: calc(50% + 4px);
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 14px 20px;
   border: none;
-  background: #fff;
-  color: #111;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  border-radius: 50px;
+}
+
+.toggle-option:hover {
+  color: white;
+}
+
+.toggle-option.active {
+  color: white;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: 2px solid rgba(170, 190, 220, 0.5);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   font-size: 13px;
   display: inline-block;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(170, 190, 220, 0.3);
+  transition: left 0.4s ease;
+  z-index: -1;
 }
 
 .btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  color: white;
+  border-color: rgba(170, 190, 220, 0.8);
+  box-shadow: 0 4px 16px rgba(170, 190, 220, 0.2);
+}
+
+.btn:hover:before {
+  left: 0;
 }
 
 .ghost {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(170, 190, 220, 0.5);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .ghost:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(170, 190, 220, 0.8);
   color: white;
 }
 
@@ -276,11 +375,11 @@ button:hover {
 }
 
 .tab-header {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(140, 160, 190, 0.25);
   backdrop-filter: blur(32px) saturate(120%);
   border-radius: 24px;
   padding: 16px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(140, 160, 190, 0.4);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -289,8 +388,8 @@ button:hover {
 }
 
 .tab-header:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(140, 160, 190, 0.35);
+  border-color: rgba(140, 160, 190, 0.5);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
