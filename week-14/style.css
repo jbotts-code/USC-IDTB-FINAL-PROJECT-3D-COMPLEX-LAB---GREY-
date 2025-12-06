@@ -1,0 +1,32 @@
+/* ------------------------------------------
+   GLOBAL BACKGROUND SYSTEM - Wave Particle Animation
+   Final approved version with dove gray gradient
+-------------------------------------------*/
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Canvas for wave particle animation */
+#waveCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Ensure UI stays crisp above backgrounds */
+.page {
+  position: relative;
+  z-index: 1;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+}

@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Studio — Innovate Differently</title>
-
+  <title>Studio • AI Simulator</title>
+  
   <link rel="stylesheet" href="style.css">
-
+  
   <style>
     body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:transparent;color:white;display:flex;justify-content:center;padding:60px 0;}
     
+    /* Canvas stays in background */
     #waveCanvas {
       position: fixed;
       top: 0;
@@ -25,6 +26,13 @@
     nav a{color:#ccc;margin-left:20px;text-decoration:none;font-size:14px}
     nav a:hover{color:white}
 
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      margin-top:30px;
+    }
+
     .panel{
       background: rgba(0, 0, 0, 0.05);
       backdrop-filter: blur(40px) saturate(140%);
@@ -32,59 +40,36 @@
       border-radius:28px;
       border:1px solid rgba(255,255,255,0.25);
       box-shadow:0 8px 32px rgba(0,0,0,0.2);
-      min-height: auto;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
     }
 
     h1{margin:0 0 30px 0;font-size:42px;font-weight:700;letter-spacing:-0.5px}
     label{display:block;margin-bottom:8px;font-size:14px;color:#bbb}
 
-    .kicker{font-size:13px;margin-bottom:14px;color:#bbb}
-    .desc{color:rgba(255,255,255,0.8);max-width:70%;margin-bottom:18px;font-size:14px;line-height:1.5}
-    .features{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-    .card{
-      background: rgba(0, 0, 0, 0.04);
-      backdrop-filter: blur(36px) saturate(140%);
-      border-radius:18px;
-      padding:18px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.22);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    select,input[type="text"],textarea{
+      width:100%;padding:12px 14px;border-radius:12px;background:#111;border:1px solid #222;color:white;margin-bottom:22px;font-size:14px;
     }
-    .card h4{margin:0 0 8px 0;color:white;font-size:15px}
-    .card p{margin:0 0 12px 0;font-size:13px;color:rgba(255,255,255,0.8);line-height:1.4}
-    .stat-row{display:flex;gap:14px;align-items:center}
-    .stat-row div:first-child{font-weight:700;font-size:22px;color:white}
-    .stat-row div:last-child{font-size:13px}
-    .cta-row{display:flex;gap:12px;align-items:center;margin-top:12px}
-    .btn{padding:10px 16px;border-radius:12px;border:none;background:#fff;color:#111;font-weight:600;cursor:pointer;text-decoration:none;font-size:13px}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    
-    .research-section{margin-top:18px;font-size:13px;color:rgba(255,255,255,0.7)}
-    .research-section strong{color:white;font-size:13px}
-    .research-section p{margin:8px 0 0 0;color:rgba(255,255,255,0.6);font-size:12px;line-height:1.4}
-    
-    .accordion{display:flex;flex-direction:column;gap:8px}
-    .acc-item{
-      padding:12px 14px;
-      border-radius:12px;
-      background:rgba(0, 0, 0, 0.06);
-      backdrop-filter: blur(24px);
-      font-size:14px;
-      color:rgba(255,255,255,0.75);
-      border:1px solid rgba(255,255,255,0.15);
+
+    input[type="range"]{width:100%;margin:20px 0}
+
+    button{
+      padding:12px 24px;border-radius:12px;border:none;background:white;color:black;font-weight:600;cursor:pointer;font-size:14px;
     }
-    footer{margin-top:20px;color:rgba(255,255,255,0.6);font-size:13px}
+
+    .estimates{margin-top:10px;font-size:14px;color:#ccc}
   </style>
 </head>
 
 <body>
-
+  <!-- ✅ WAVE PARTICLE ANIMATION BACKGROUND -->
   <canvas id="waveCanvas"></canvas>
 
   <div class="wrap">
 
     <header>
-      <div>STUDIO</div>
+      <div>STUDIO • AI SIMULATOR</div>
       <nav>
         <a href="index.html">Home</a>
         <a href="aisimulator.html">Simulator</a>
@@ -92,56 +77,67 @@
       </nav>
     </header>
 
-    <div class="panel">
-      <div class="kicker">01</div>
-      <h1>3D COMPLEX LAB.</h1>
+    <!-- GRID: Controls (left) and Preview (right) -->
+    <div class="grid">
 
-      <p class="desc">
-        We design luxury 3D-printed home objects — furniture, lighting, and accessories — combining parametric design and robotics with sustainable materials.
-      </p>
+      <!-- LEFT PANEL -->
+      <div class="panel">
+        <h1>Design Controls</h1>
 
-      <div class="features">
-        <div class="card">
-          <h4>Unlock the full potential of 3D-printing</h4>
-          <p>Our catalog and studio workflows connect design decisions to costs — in real time.</p>
-          <div class="stat-row">
-            <div>75%</div>
-            <div>Improved material efficiency</div>
-          </div>
-        </div>
+        <label>Product Type</label>
+        <select>
+          <option>Vase</option>
+          <option>Chair</option>
+          <option>Lighting</option>
+        </select>
 
-        <div class="card">
-          <h4>Schedule a consultation</h4>
-          <p>Bring your ideas — our AI-guided simulator prepares estimates before your meeting.</p>
-          <div class="cta-row">
-            <a class="btn" href="aisimulator.html">Try the Simulator</a>
-            <a class="btn ghost" href="contact.html">Book a Visit</a>
-          </div>
-        </div>
+        <label>Material</label>
+        <select>
+          <option>Ceramic (standard)</option>
+          <option>Clay Premium</option>
+          <option>Recycled Mix</option>
+        </select>
+
+        <label>Scale</label>
+        <input id="scale" type="range" min="1" max="100" value="50" />
+
+        <label>Accent Color</label>
+        <input id="accent" type="text" value="#d88932" />
+
+        <p class="estimates">
+          AI Assistant updates estimates in real time.<br><br>
+          Estimated Cost: $15,000<br>
+          Estimated Print Time: —
+        </p>
+
+        <button>Run Simulation</button>
+
+        <p style="margin-top:20px;font-size:13px;color:#aaa">
+          Use our AI assistant to optimize material & cost before booking a consultation in Los Angeles.
+        </p>
       </div>
 
-      <div class="research-section">
-        <strong>Studio Research & History</strong>
-        <p>We research robotic fabrication, material science, and parametric workflows.</p>
+      <!-- RIGHT PANEL (SIM PREVIEW) -->
+      <div class="panel" style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          position:relative;
+      ">
+        <div id="simObject" style="
+            width:160px;
+            height:160px;
+            border-radius:999px;
+            background:#d88932;
+            box-shadow:0 14px 36px rgba(0,0,0,0.45);
+            transition:all 0.25s ease;
+        "></div>
       </div>
+
     </div>
-
-    <div class="panel" style="margin-top:40px">
-      <h1 style="font-size:28px;margin-bottom:20px">Shaping the Future</h1>
-      <div class="accordion">
-        <div class="acc-item">Robotic Automation</div>
-        <div class="acc-item">Material Science</div>
-        <div class="acc-item">Circular Design</div>
-        <div class="acc-item">Research Initiative</div>
-      </div>
-    </div>
-
-    <footer>
-      © Studio — 3D Printed Interiors • Made in Los Angeles
-    </footer>
-
   </div>
 
+  <!-- ✅ WAVE PARTICLE ANIMATION SCRIPT -->
   <script>
     const canvas = document.getElementById('waveCanvas');
     const ctx = canvas.getContext('2d');
@@ -260,6 +256,22 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     animate();
+
+    // Simulator controls
+    const scaleInput = document.getElementById("scale");
+    const colorInput = document.getElementById("accent");
+    const simObject = document.getElementById("simObject");
+
+    scaleInput.addEventListener("input", e => {
+        const v = parseFloat(e.target.value);
+        const size = 80 + (v * 1.8);
+        simObject.style.width = size + "px";
+        simObject.style.height = size + "px";
+    });
+
+    colorInput.addEventListener("input", e => {
+        simObject.style.background = e.target.value || "#d88932";
+    });
   </script>
 
 </body>

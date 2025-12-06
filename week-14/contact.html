@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Studio • Contact</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{margin:0;font-family:Inter,system-ui;-webkit-font-smoothing:antialiased;background:transparent;color:white;display:flex;justify-content:center;padding:60px 0;}
+
+/* Canvas stays in background */
+#waveCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.wrap{width:1200px;max-width:94%;position:relative;z-index:1;}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;opacity:.9}
+nav a{color:#ccc;margin-left:20px;text-decoration:none;font-size:14px}
+nav a:hover{color:white}
+.panel{
+background: rgba(0, 0, 0, 0.05);
+backdrop-filter: blur(40px) saturate(140%);
+padding:40px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.25);
+box-shadow:0 8px 32px rgba(0,0,0,0.2);
+min-height: 600px;
+    }
+h1{margin:0 0 30px 0;font-size:42px;font-weight:700;letter-spacing:-0.5px}
+label{display:block;margin-bottom:8px;font-size:14px;color:#bbb}
+input[type="text"],textarea,select{
+width:100%;padding:12px 14px;border-radius:12px;background:#111;border:1px solid #222;color:white;margin-bottom:22px;font-size:14px
+    }
+button{
+padding:12px 24px;border-radius:12px;border:none;background:white;color:black;font-weight:600;cursor:pointer;font-size:14px
+    }
+</style>
+</head>
+<body>
+
+<!-- ✅ WAVE PARTICLE ANIMATION BACKGROUND -->
+<canvas id="waveCanvas"></canvas>
+
+<div class="wrap">
+<header>
+<div>STUDIO • CONTACT</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="aisimulator.html">Simulator</a>
+<a href="contact.html">Contact</a>
+</nav>
+</header>
+<div class="panel">
+<h1>STUDIO • CONTACT</h1>
+<label>Full name</label>
+<input type="text" placeholder="Your name" />
+<label>Email</label>
+<input type="text" placeholder="you@example.com" />
+<label>Reason for contact</label>
+<select>
+<option>Consultation / Pricing</option>
+<option>Custom Project</option>
+<option>Material / Manufacturing</option>
+</select>
+<label>Message</label>
+<textarea rows="4" placeholder="Tell us about your project"></textarea>
+<button>Send Message</button>
+<p style="margin-top:20px;font-size:13px;color:#aaa">
+        We typically reply within 48 hours.<br><br>
+        Use our AI assistant to optimize material & cost before booking a consultation in Los Angeles.
+</p>
+</div>
+</div>
+
+<!-- ✅ WAVE PARTICLE ANIMATION SCRIPT -->
+<script>
+    const canvas = document.getElementById('waveCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let config = {
+        gridSpacing: 10,
+        waveSpeed: 0.002,
+        waveHeight: 40,
+        particleSize: 1.2,
+        particleOpacity: 0.6
+    };
+
+    const mountains = [
+        { x: 0.50, y: 0.50, strength: 1.5, speed: 0.7 },
+        { x: 0.20, y: 0.25, strength: 1.0, speed: 0.9 },
+        { x: 0.80, y: 0.25, strength: 1.0, speed: 0.85 },
+        { x: 0.20, y: 0.75, strength: 0.95, speed: 1.0 },
+        { x: 0.80, y: 0.75, strength: 0.95, speed: 0.95 },
+        { x: 0.50, y: 0.15, strength: 0.9, speed: 1.1 },
+        { x: 0.50, y: 0.85, strength: 0.9, speed: 0.88 },
+        { x: 0.15, y: 0.50, strength: 0.85, speed: 0.92 },
+        { x: 0.85, y: 0.50, strength: 0.85, speed: 0.98 }
+    ];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initParticles();
+    }
+
+    let particles = [];
+
+    class Particle {
+        constructor(x, y) {
+            this.baseX = x;
+            this.baseY = y;
+            this.x = x;
+            this.y = y;
+            this.z = 0;
+            this.size = config.particleSize;
+            this.opacity = config.particleOpacity;
+        }
+
+        update(time) {
+            this.z = 0;
+            
+            mountains.forEach((mountain) => {
+                const mountainX = canvas.width * mountain.x;
+                const mountainY = canvas.height * mountain.y;
+                const dx = this.baseX - mountainX;
+                const dy = this.baseY - mountainY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const falloff = Math.exp(-distance * 0.0015);
+                const wave = Math.sin(time * config.waveSpeed * mountain.speed + distance * 0.01) * config.waveHeight * mountain.strength * falloff;
+                this.z += wave;
+            });
+            
+            const globalFlow1 = Math.sin(time * config.waveSpeed * 0.4 + this.baseX * 0.001 + this.baseY * 0.0008) * config.waveHeight * 0.15;
+            const globalFlow2 = Math.cos(time * config.waveSpeed * 0.5 - this.baseX * 0.0012 + this.baseY * 0.001) * config.waveHeight * 0.1;
+            this.z += globalFlow1 + globalFlow2;
+            
+            const perspective = 1.2;
+            const xDisplacement = this.z * perspective * Math.sin(time * config.waveSpeed * 0.5 + this.baseY * 0.006);
+            const yDisplacement = this.z * perspective * Math.cos(time * config.waveSpeed * 0.6 + this.baseX * 0.005);
+            
+            this.x = this.baseX + xDisplacement;
+            this.y = this.baseY + yDisplacement;
+            
+            const depthFactor = (this.z / config.waveHeight) * 0.3;
+            this.opacity = config.particleOpacity + depthFactor;
+            this.opacity = Math.max(0.2, Math.min(1, this.opacity));
+            this.size = config.particleSize + (depthFactor * 0.4);
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const cols = Math.ceil(canvas.width / config.gridSpacing) + 4;
+        const rows = Math.ceil(canvas.height / config.gridSpacing) + 4;
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                const x = j * config.gridSpacing - config.gridSpacing * 2;
+                const y = i * config.gridSpacing - config.gridSpacing * 2;
+                particles.push(new Particle(x, y));
+            }
+        }
+    }
+
+    let time = 0;
+
+    function animate() {
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, 'rgb(139, 139, 139)');
+        gradient.addColorStop(1, 'rgb(58, 58, 58)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        time++;
+
+        particles.forEach(particle => {
+            particle.update(time);
+            particle.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    animate();
+</script>
+
+</body>
+</html>
