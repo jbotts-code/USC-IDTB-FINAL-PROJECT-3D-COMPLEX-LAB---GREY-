@@ -394,7 +394,7 @@
           <div class="custom-select-header">Chair</div>
           <div class="custom-select-menu">
             <div class="custom-option" onclick="selectOption(this, 'Chair')">Chair</div>
-            <div class="custom-option" onclick="selectOption(this, 'Table')">Table</div>
+            <div class="custom-option" onclick="selectOption(this, 'Stool')">Stool</div>
           </div>
         </div>
 
@@ -411,21 +411,55 @@
         <label>Scale</label>
         <input id="scale" type="range" min="1" max="100" value="50" />
 
+        <label>Dominant Color</label>
+        <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap">
+          <input type="color" id="dominantColor" value="#8B9DC3" style="display:none"/>
+          <!-- Slate Blue -->
+          <button type="button" class="color-btn" onclick="setDominantColor('#8B9DC3')" style="width:40px;height:40px;background:#8B9DC3;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Carolina Blue -->
+          <button type="button" class="color-btn" onclick="setDominantColor('#6FA3D6')" style="width:40px;height:40px;background:#6FA3D6;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Ash Grey -->
+          <button type="button" class="color-btn" onclick="setDominantColor('#A8A8A8')" style="width:40px;height:40px;background:#A8A8A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Ash Mist -->
+          <button type="button" class="color-btn" onclick="setDominantColor('#D4D4D4')" style="width:40px;height:40px;background:#D4D4D4;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Ash Green -->
+          <button type="button" class="color-btn" onclick="setDominantColor('#A8C9A8')" style="width:40px;height:40px;background:#A8C9A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Vanilla -->
+          <button type="button" class="color-btn" onclick="setDominantColor('#F5E4A0')" style="width:40px;height:40px;background:#F5E4A0;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+        </div>
+
+        <label>Secondary Color</label>
+        <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap">
+          <input type="color" id="secondaryColor" value="#6FA3D6" style="display:none"/>
+          <!-- Slate Blue -->
+          <button type="button" class="color-btn" onclick="setSecondaryColor('#8B9DC3')" style="width:40px;height:40px;background:#8B9DC3;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Carolina Blue -->
+          <button type="button" class="color-btn" onclick="setSecondaryColor('#6FA3D6')" style="width:40px;height:40px;background:#6FA3D6;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Ash Grey -->
+          <button type="button" class="color-btn" onclick="setSecondaryColor('#A8A8A8')" style="width:40px;height:40px;background:#A8A8A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Ash Mist -->
+          <button type="button" class="color-btn" onclick="setSecondaryColor('#D4D4D4')" style="width:40px;height:40px;background:#D4D4D4;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Ash Green -->
+          <button type="button" class="color-btn" onclick="setSecondaryColor('#A8C9A8')" style="width:40px;height:40px;background:#A8C9A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <!-- Vanilla -->
+          <button type="button" class="color-btn" onclick="setSecondaryColor('#F5E4A0')" style="width:40px;height:40px;background:#F5E4A0;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+        </div>
+
         <label>Accent Color</label>
         <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap">
-          <input type="color" id="accent" value="#F5E4A0" style="display:none"/>
+          <input type="color" id="accentColor" value="#F5E4A0" style="display:none"/>
           <!-- Slate Blue -->
-          <button type="button" class="color-btn" onclick="setColor('#8B9DC3')" style="width:40px;height:40px;background:#8B9DC3;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <button type="button" class="color-btn" onclick="setAccentColor('#8B9DC3')" style="width:40px;height:40px;background:#8B9DC3;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
           <!-- Carolina Blue -->
-          <button type="button" class="color-btn" onclick="setColor('#6FA3D6')" style="width:40px;height:40px;background:#6FA3D6;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <button type="button" class="color-btn" onclick="setAccentColor('#6FA3D6')" style="width:40px;height:40px;background:#6FA3D6;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
           <!-- Ash Grey -->
-          <button type="button" class="color-btn" onclick="setColor('#A8A8A8')" style="width:40px;height:40px;background:#A8A8A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <button type="button" class="color-btn" onclick="setAccentColor('#A8A8A8')" style="width:40px;height:40px;background:#A8A8A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
           <!-- Ash Mist -->
-          <button type="button" class="color-btn" onclick="setColor('#D4D4D4')" style="width:40px;height:40px;background:#D4D4D4;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <button type="button" class="color-btn" onclick="setAccentColor('#D4D4D4')" style="width:40px;height:40px;background:#D4D4D4;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
           <!-- Ash Green -->
-          <button type="button" class="color-btn" onclick="setColor('#A8C9A8')" style="width:40px;height:40px;background:#A8C9A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <button type="button" class="color-btn" onclick="setAccentColor('#A8C9A8')" style="width:40px;height:40px;background:#A8C9A8;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
           <!-- Vanilla -->
-          <button type="button" class="color-btn" onclick="setColor('#F5E4A0')" style="width:40px;height:40px;background:#F5E4A0;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
+          <button type="button" class="color-btn" onclick="setAccentColor('#F5E4A0')" style="width:40px;height:40px;background:#F5E4A0;padding:0;border:1px solid #999;border-radius:4px;cursor:pointer"/>
         </div>
 
         <p class="estimates">
@@ -677,20 +711,26 @@
     // Create chair group
     const chairGroup = new THREE.Group();
 
-    const chairMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0xd88932,
+    const chairBackMaterial = new THREE.MeshStandardMaterial({ 
+      color: 0x8B9DC3,
+      roughness: 0.5,
+      metalness: 0.05
+    });
+
+    const chairSeatMaterial = new THREE.MeshStandardMaterial({ 
+      color: 0x6FA3D6,
       roughness: 0.5,
       metalness: 0.05
     });
 
     // Chair back
-    const back = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.2, 0.1), chairMaterial);
+    const back = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.2, 0.1), chairBackMaterial);
     back.position.set(0, 0.5, -0.35);
     back.userData = { initialPos: { x: 0, y: 0.5, z: -0.35 }, startPos: { x: 0, y: 2.2, z: -0.35 }, name: 'back' };
     chairGroup.add(back);
 
     // Chair seat
-    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.1, 0.8), chairMaterial);
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.1, 0.8), chairSeatMaterial);
     seat.position.set(0, 0, 0);
     seat.userData = { initialPos: { x: 0, y: 0, z: 0 }, startPos: { x: 0, y: -1.2, z: 0 }, name: 'seat' };
     chairGroup.add(seat);
@@ -699,7 +739,7 @@
     const legs = [];
     const legGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.7, 16);
     const legMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0xd88932,
+      color: 0xF5E4A0,
       roughness: 0.5,
       metalness: 0.05
     });
@@ -772,15 +812,21 @@
     footstoolGroup.visible = false;
 
     const footstoolFrameMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0xa68869,
+      color: 0x8B9DC3,
       roughness: 0.6,
       metalness: 0.02
     });
 
     const footstoolCushionMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0xd8c5a5,
+      color: 0x6FA3D6,
       roughness: 0.7,
       metalness: 0
+    });
+
+    const footstoolLegsMaterial = new THREE.MeshStandardMaterial({ 
+      color: 0xF5E4A0,
+      roughness: 0.6,
+      metalness: 0.02
     });
 
     // Footstool frame - curved wooden base
@@ -800,11 +846,6 @@
     // Footstool internal support pieces (legs)
     const supportLegs = [];
     const supportLegGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.3, 16);
-    const supportLegMaterial = new THREE.MeshStandardMaterial({ 
-      color: 0xa68869,
-      roughness: 0.6,
-      metalness: 0.02
-    });
 
     const supportLegPositions = [
       { x: -0.3, z: -0.3 },
@@ -814,7 +855,7 @@
     ];
 
     supportLegPositions.forEach(({ x, z }, index) => {
-      const leg = new THREE.Mesh(supportLegGeometry, supportLegMaterial);
+      const leg = new THREE.Mesh(supportLegGeometry, footstoolLegsMaterial);
       leg.position.set(x, 0, z);
       leg.userData = { 
         initialPos: { x: x, y: 0, z: z }, 
@@ -882,17 +923,48 @@
       mouseDown = false;
     });
 
-    // Color control
-    const accentInput = document.getElementById('accent');
-    accentInput.addEventListener('input', (e) => {
-      chairMaterial.color.setStyle(e.target.value);
-      tableMaterial.color.setStyle(e.target.value);
+    // Color control for three material types
+    const dominantColorInput = document.getElementById('dominantColor');
+    const secondaryColorInput = document.getElementById('secondaryColor');
+    const accentColorInput = document.getElementById('accentColor');
+
+    dominantColorInput.addEventListener('input', (e) => {
+      chairBackMaterial.color.setStyle(e.target.value);
       footstoolFrameMaterial.color.setStyle(e.target.value);
+      tableTop.material.color.setStyle(e.target.value);
     });
 
-    function setColor(color) {
-      document.getElementById('accent').value = color;
-      document.getElementById('accent').dispatchEvent(new Event('input'));
+    secondaryColorInput.addEventListener('input', (e) => {
+      chairSeatMaterial.color.setStyle(e.target.value);
+      cushion.material.color.setStyle(e.target.value);
+    });
+
+    accentColorInput.addEventListener('input', (e) => {
+      legMaterial.color.setStyle(e.target.value);
+      legs.forEach(leg => {
+        leg.material.color.setStyle(e.target.value);
+      });
+      supportLegs.forEach(leg => {
+        leg.material.color.setStyle(e.target.value);
+      });
+      tableLegs.forEach(leg => {
+        leg.material.color.setStyle(e.target.value);
+      });
+    });
+
+    function setDominantColor(color) {
+      document.getElementById('dominantColor').value = color;
+      document.getElementById('dominantColor').dispatchEvent(new Event('input'));
+    }
+
+    function setSecondaryColor(color) {
+      document.getElementById('secondaryColor').value = color;
+      document.getElementById('secondaryColor').dispatchEvent(new Event('input'));
+    }
+
+    function setAccentColor(color) {
+      document.getElementById('accentColor').value = color;
+      document.getElementById('accentColor').dispatchEvent(new Event('input'));
     }
 
     // Custom dropdown functionality
@@ -955,21 +1027,51 @@
       assemblyProgress += assemblySpeed;
       
       if (currentAssemblyPart === 0) {
-        // Assemble back
-        back.position.y = back.userData.startPos.y + (back.userData.initialPos.y - back.userData.startPos.y) * assemblyProgress;
-        document.getElementById('progressText').textContent = 'Back';
+        // Assemble part 0 (back/frame/top)
+        if (currentProduct === 'chair') {
+          back.position.y = back.userData.startPos.y + (back.userData.initialPos.y - back.userData.startPos.y) * assemblyProgress;
+          document.getElementById('progressText').textContent = 'Back';
+        } else if (currentProduct === 'footstool') {
+          frame.position.y = frame.userData.startPos.y + (frame.userData.initialPos.y - frame.userData.startPos.y) * assemblyProgress;
+          document.getElementById('progressText').textContent = 'Frame';
+        } else if (currentProduct === 'table') {
+          tableTop.position.y = tableTop.userData.startPos.y + (tableTop.userData.initialPos.y - tableTop.userData.startPos.y) * assemblyProgress;
+          document.getElementById('progressText').textContent = 'Top';
+        }
         document.getElementById('progressBar').style.width = (assemblyProgress * 100 / 3) + '%';
       } else if (currentAssemblyPart === 1) {
-        // Assemble seat
-        seat.position.y = seat.userData.startPos.y + (seat.userData.initialPos.y - seat.userData.startPos.y) * assemblyProgress;
-        document.getElementById('progressText').textContent = 'Seat';
+        // Assemble part 1 (seat/cushion/frame)
+        if (currentProduct === 'chair') {
+          seat.position.y = seat.userData.startPos.y + (seat.userData.initialPos.y - seat.userData.startPos.y) * assemblyProgress;
+          document.getElementById('progressText').textContent = 'Seat';
+        } else if (currentProduct === 'footstool') {
+          cushion.position.y = cushion.userData.startPos.y + (cushion.userData.initialPos.y - cushion.userData.startPos.y) * assemblyProgress;
+          document.getElementById('progressText').textContent = 'Cushion';
+        } else if (currentProduct === 'table') {
+          tableLegs.forEach(leg => {
+            leg.position.y = leg.userData.startPos.y + (leg.userData.initialPos.y - leg.userData.startPos.y) * assemblyProgress;
+          });
+          document.getElementById('progressText').textContent = 'Support';
+        }
         document.getElementById('progressBar').style.width = ((1 + assemblyProgress) * 100 / 3) + '%';
       } else if (currentAssemblyPart === 2) {
-        // Assemble legs
-        legs.forEach(leg => {
-          leg.position.y = leg.userData.startPos.y + (leg.userData.initialPos.y - leg.userData.startPos.y) * assemblyProgress;
-        });
-        document.getElementById('progressText').textContent = 'Legs';
+        // Assemble part 2 (legs)
+        if (currentProduct === 'chair') {
+          legs.forEach(leg => {
+            leg.position.y = leg.userData.startPos.y + (leg.userData.initialPos.y - leg.userData.startPos.y) * assemblyProgress;
+          });
+          document.getElementById('progressText').textContent = 'Legs';
+        } else if (currentProduct === 'footstool') {
+          supportLegs.forEach(leg => {
+            leg.position.y = leg.userData.startPos.y + (leg.userData.initialPos.y - leg.userData.startPos.y) * assemblyProgress;
+          });
+          document.getElementById('progressText').textContent = 'Legs';
+        } else if (currentProduct === 'table') {
+          tableLegs.forEach(leg => {
+            leg.position.y = leg.userData.startPos.y + (leg.userData.initialPos.y - leg.userData.startPos.y) * assemblyProgress;
+          });
+          document.getElementById('progressText').textContent = 'Legs';
+        }
         document.getElementById('progressBar').style.width = ((2 + assemblyProgress) * 100 / 3) + '%';
       }
 
@@ -1089,7 +1191,7 @@
       if (assembledParts.back && assembledParts.seat && assembledParts.legs) {
         // Set completion message based on product
         if (currentProduct === 'chair') {
-          document.getElementById('completionTitle').textContent = 'Chair Complete!';
+          document.getElementById('completionTitle').textContent = 'Stool Complete!';
         } else if (currentProduct === 'footstool') {
           document.getElementById('completionTitle').textContent = 'Stool Complete!';
         }
